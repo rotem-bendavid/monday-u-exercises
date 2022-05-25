@@ -1,17 +1,10 @@
-html {
-  height: 100%;
-}
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+* {
+  box-sizing: border-box;
 }
 
-.app-container {
+body {
+  height: 100vh;
   width: 100%;
-  height: 100%;
-  font-family: Georgia, serif;
-  font-weight: lighter;
   background-image: linear-gradient(
     to top right,
     white,
@@ -20,98 +13,115 @@ body {
     rgba(106, 117, 231, 0.76),
     rgba(85, 97, 229, 0.76)
   );
+}
 
+.container {
+  margin: 120px auto;
+  max-width: 50%;
+  background-color: aliceblue;
+  padding-inline: 25px;
+  padding-top: 10px;
+  padding-bottom: 25px;
+  border-radius: 5px;
+}
+
+.container h1 {
+  color: rgb(0, 0, 0);
+  font-size: 30px;
+  text-align: center;
+}
+
+
+.newTask input {
+  width: 100%;
+  min-width: 85%;
+  height: 100%;
+  border: 1px solid #ccc;
+  font-size: 17px;
+  border-radius: 3px;
+  padding-left: 15px;
+  outline: none;
+}
+
+.newTask button {
+  width: 50px;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: rgba(85, 97, 229, 0.76);
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-left: 5px;
+  
+}
+
+.container .newTask {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  height: 45px;
+  width: 100%;
+  margin: 20px 0;
 }
 
-.app-name {
-  padding-left: 32px;
-  font-weight: lighter;
+.container .tasks {
+  max-height: 250px;
+  overflow-y: auto;
 }
 
-.list-container {
+.tasks li {
+  list-style: none;
+  height: 45px;
+  line-height: 45px;
+  position: relative;
+  background: #f2f2f2;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  padding: 0 15px;
+  overflow: hidden;
+}
+
+.tasks li:hover  {
+  background: rgba(227, 229, 249, 0.76);
+  cursor: pointer;
+}
+
+.tasks li span {
+  position: absolute;
+  right: -45px;
+  color: #fff;
+  background-color: rgba(182, 187, 254, 0.76);
+  width: 45px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 0 3px 3px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tasks li:hover span {
+  right: 0px;
+}
+
+.container .bottom {
   display: flex;
-  flex-direction: column;
-  width: 30%;
-  height: 50%;
-  background-color: white;
-  border: 1px silver solid;
-  border-radius: 8px;
-  -webkit-box-shadow: 12px 12px 38px -13px #000000;
-  box-shadow: 12px 12px 38px -13px #000000;
+  width: 100%;
+  margin-top: 15px;
+  padding-left: 15px;
 }
 
-.list-controls {
-  padding: 0px 32px;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
-}
-
-.list-controls #list-item-input {
-  width: 85%;
-  height: 30px;
+.bottom button {
+  border: none;
+  outline: none;
+  background: gray;
+  color: #fff;
   font-size: 16px;
-  padding-left: 8px;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 6px 10px;
 }
 
-.list-controls #list-item-submit {
-  color: white;
-  background-color: #6c6cff;
-  border-style: solid;
-  border-color: transparent;
-  border-radius: 4px;
-  height: 35px;
-  width: 35px;
-  font-size: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+.container .bottom .sort {
   margin-left: auto;
-}
-
-.list-controls #list-item-submit:hover {
-  background-color: #3c3cff;
-  transition: background-color 0.2s ease-in-out;
-}
-
-#list {
-  list-style-type: none;
-  padding: 0px 30px;
-  height: 310px;
-  overflow-y: scroll;
-}
-
-.list-item {
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.list-item:hover {
-  color: blueviolet;
-  transition: color 0.2s ease-in-out;
-}
-
-.list-item:not(:last-of-type) {
-  border-bottom: 1px #bbb5b5 solid;
-}
-
-.list-item-delete-button {
-  margin-left: auto;
-  padding: 8px;
-  cursor: pointer;
-  border-radius: 8px;
-}
-
-.list-item-delete-button:hover {
-  background-color: #f0f0f5;
-  transition: background-color 0.2s ease-in-out;
+  margin-right: 5px;
 }
