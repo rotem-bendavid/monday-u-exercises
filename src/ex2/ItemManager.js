@@ -9,15 +9,9 @@ class ItemManager {
         }
         else {
             var regex=/^[0-9,]+$/;
-            if (item.match(regex)) { //if input is nums & ','
-                if (item.indexOf(',')!=-1) { //if there are some pokemons
-                    let arr = item.split(',');
-                    arr = arr.filter(item=>item); //delete empty fields
-                    arr.forEach(key => this.fetch(key))
-                }
-                else { //if there is only one pokemon
-                    this.fetch(item);
-                }
+            const pokemonsName = ['bulbasaur','ivysaur','charmander','charmeleon','charizard','squirtle','wartortle','blastoise','caterpie'];
+            if (item.match(regex) || pokemonsName.indexOf(item)!=-1) { //if input is nums & ',' or pokemon name from pokemonsName list
+                this.pokemonFetch(item);
             }
             else { //if input is text
                 this.tasks.push(item);
@@ -36,19 +30,19 @@ class ItemManager {
         render();
     }
 
-    fetch(item) {
-        pokemon.pcatch(item)
+    pokemonFetch(item){
+        pokemon.pokemonCatch(item)
                     .then(res => {
                         if (this.tasks.includes('Catch '+res)) { //prevents adding the same Pokemon
                             alert(res+' Pokemon is already in array');
                         }
                         else {
-                            this.tasks.push('Catch '+res);
+                            res.map(value => this.tasks.push('Catch '+value));
                             render();
                         }
                     })
                     .catch(err => {
-                        this.tasks.push('Pokemon with ID '+item+' not found');
+                        this.tasks.push('At least one of the Pokemons ID '+item+' not found');
                         render();
                     });
     }
