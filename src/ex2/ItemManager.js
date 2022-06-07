@@ -26,7 +26,7 @@ class ItemManager {
     }
 
     removeAll() {
-        this.tasks.length = 0;
+        this.tasks = [];
         render();
     }
 
@@ -48,7 +48,9 @@ class ItemManager {
     }
 
     sort() {
-        this.tasks.sort();
+        this.tasks.sort(function (a, b) { //sort function ignore capital letter or not
+            return a.toLowerCase().localeCompare(b.toLowerCase());
+        });
         render();
     }
 
