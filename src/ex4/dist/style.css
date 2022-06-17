@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
   height: 100%;
 }
@@ -27,91 +31,100 @@ body {
   justify-content: center;
 }
 
-.app-name {
-  padding-left: 32px;
-  font-weight: lighter;
-}
-
 .list-container {
-  display: flex;
-  flex-direction: column;
-  width: 30%;
+  margin: 120px auto;
+  max-width: 50%;
   height: 50%;
-  background-color: white;
-  border: 1px silver solid;
-  border-radius: 8px;
+  background-color: aliceblue;
+  padding-inline: 25px;
+  padding-top: 10px;
+  padding-bottom: 25px;
+  border-radius: 5px;
   -webkit-box-shadow: 12px 12px 38px -13px #000000;
   box-shadow: 12px 12px 38px -13px #000000;
 }
 
-.list-controls {
-  padding: 0px 32px;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
+.list-container h1 {
+  color: rgb(0, 0, 0);
+  font-size: 30px;
+  text-align: center;
 }
 
-.list-controls #list-item-input {
-  width: 85%;
-  height: 30px;
+
+.newTask input {
+  width: 100%;
+  min-width: 85%;
+  height: 100%;
+  border: 1px solid #ccc;
   font-size: 16px;
-  padding-left: 8px;
+  border-radius: 3px;
+  padding-left: 15px;
+  outline: none;
 }
 
-.list-controls #list-item-submit {
-  color: white;
-  background-color: #6c6cff;
-  border-style: solid;
-  border-color: transparent;
-  border-radius: 4px;
-  height: 35px;
-  width: 35px;
-  font-size: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.newTask button {
+  width: 50px;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: rgba(85, 97, 229, 0.76);
+  color: #fff;
+  font-size: 22px;
   cursor: pointer;
-  margin-left: auto;
+  border-radius: 3px;
+  margin-left: 5px;
+  
 }
 
-.list-controls #list-item-submit:hover {
+.newTask button:hover {
   background-color: #3c3cff;
   transition: background-color 0.2s ease-in-out;
 }
 
+.list-container .newTask {
+  display: flex;
+  height: 45px;
+  width: 100%;
+  margin: 20px 0;
+}
+
 #list {
-  list-style-type: none;
-  padding: 0px 30px;
-  height: 310px;
-  overflow-y: scroll;
+  max-height: 250px;
+  overflow-y: auto;
 }
 
 .list-item {
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.list-item:hover {
-  color: blueviolet;
-  transition: color 0.2s ease-in-out;
+  min-height: 45px;
+  line-height: 45px;
+  position: relative;
+  margin-left: -25px;
+  border-radius: 3px;
+  overflow: hidden;
 }
 
 .list-item:not(:last-of-type) {
   border-bottom: 1px #bbb5b5 solid;
 }
 
-.list-item-delete-button {
-  margin-left: auto;
-  padding: 8px;
+.list-item:hover  {
+  color: blueviolet;
+  transition: color 0.2s ease-in-out;
   cursor: pointer;
-  border-radius: 8px;
 }
 
-.list-item-delete-button:hover {
-  background-color: #f0f0f5;
-  transition: background-color 0.2s ease-in-out;
+.list-item-delete {
+  position: absolute;
+  right: -45px;
+  color: #fff;
+  background-color: rgba(182, 187, 254, 0.76);
+  width: 45px;
+  text-align: center;
+  padding: 12px;
+  border-radius: 0 3px 3px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.list-item:hover .list-item-delete{
+  right: 0px;
 }
