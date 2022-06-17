@@ -1,28 +1,42 @@
 class Main {
     constructor() {
-        this.itemClient = new ItemClient()
+        this.itemClient = new ItemClient();
     }
 
     init = async () => {
         const addItemButton = document.getElementById("list-item-submit");
-        addItemButton.addEventListener("click", this.handleItem);
+        let todoInput = document.querySelector(".list-controls input");
+        addItemButton.addEventListener("click", (event) => {
+            this.handleItem(todoInput.value);
+            todoInput.value = ""; //clears the input after adding task
+        });
 
-        await this.renderItems(); // this will make it so that any time you refresh the page you'll see the items already in your todo list
+        todoInput.addEventListener('keypress', (event) => { //recognize pressing enter key
+            if (event.keyCode === 13) {
+                this.handleItem(todoInput.value);
+                todoInput.value = ""; //clears the input after adding task
+            }
+        });
+
+        await this.renderItems(); // render todos at the beggining
     }
 
-    handleItem = async () => {
-        // implement
+    handleItem = async (todoInput) => {
+        await this.itemClient.addTodo(todoInput);
+        await this.renderItems();
     }
 
     deleteItem = async item => {
-        // implement
+        await this.itemClient.deleteTodo(item);
+        await this.renderItems();
+
     }
 
     renderItems = async () => {
         const list = document.getElementById("list");
         list.innerHTML = "";
 
-        const items = 'where do you get the items from now that you have a server..?'
+        const items = await this.itemClient.getTodos(); 
 
         items.forEach(item => {
             const listItem = document.createElement("li");
