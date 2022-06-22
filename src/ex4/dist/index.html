@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Listy</title>
+<head>
+    <title>TO-DO List</title>
     <link rel="stylesheet" href="style.css" />
-  </head>
-
-  <body>
+</head>
+<body>
     <div class="app-container">
       <div class="list-container">
-        <h1 class="app-name">Todo App</h1>
-        <div class="list-controls">
-          <input
-            type="text"
-            id="list-item-input"
-            placeholder="Add your new todo"
-          />
-          <button type="button" id="list-item-submit">+</button>
+        <h1>TO-DO list</h1>
+        <div class="newTask">
+            <input type="text" id="list-item-input" placeholder="Add new TO-DO">
+            <button type="submit" id="list-item-submit" class="add">+</button>
         </div>
-        <ul id="list"></ul>
+        
+          <ul id="list"></ul>
+        
+        <div class="bottom">
+        </div>
       </div>
     </div>
-  </body>
+</body>
 
   <script src="./clients/item_client.js"></script>
   <script src="./main.js"></script>

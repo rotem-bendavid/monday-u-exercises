@@ -1,9 +1,9 @@
 const fs = require('fs').promises;
-const todoFile = 'todo_list.json';
+//const todoFile = 'todo_list.json';
 const pokemonAPI = require("../clients/pokemon_client.js");
+const { Items } = require('../db/models');
 
-
-async function readTodoFile() {
+/*async function readTodoFile() {
     try {
         const data = await fs.readFile(todoFile);
         return JSON.parse(data.toString());
@@ -18,47 +18,46 @@ async function writeTodoFile(content) {
     } catch (error) {
         console.error(`Failed to write to file ${error.message}`);
     }
-}
+}*/
 
 async function getAll() {
-    return await readTodoFile();
+    const items = await Items.findAll();
+    const itemsMap = items.map(value => {return value.item_name});
+    return itemsMap;
 }
 
 async function addTodo(newTodo) {
-    let data = await readTodoFile();
-    if (!data) {
-        data = [];
-    }
-
     var regex=/^[0-9,]+$/;
     const pokemonsName = ['bulbasaur','ivysaur','charmander','charmeleon','charizard','squirtle','wartortle','blastoise','caterpie'];
     if (newTodo.match(regex) || pokemonsName.indexOf(newTodo)!=-1) { //if input is nums & ',' or pokemon name from pokemonsName list
         const pokemonsCatched = await pokemonFetch(newTodo);
         if (pokemonsCatched) {
             const allValues = await getAll();
-            pokemonsCatched.map(value => {
+            await Promise.all(pokemonsCatched.map(async value => {
                 const alreadyExist = checkIfExist(value,allValues);
-                if (!alreadyExist) {
-                    data.push('Catch '+value)}
-                else { console.error(`err: Pokemon ${value} already exist in list`) }
-            });
+                if (!alreadyExist) { //prevents adding the same Pokemon
+                    await add(('Catch '+value));
+                }
+                else { 
+                    console.error(`err: Pokemon ${value} already exist in list`) 
+                }
+            }));
         }
         else {
-            data.push(`At least one of the Pokemons ID ${newTodo} not found`);
+            await add((`At least one of the Pokemons ID ${newTodo} not found`));
         }
     }
-    else { //if input is text
-        data.push(newTodo);
+    else {
+        await add(newTodo);
     }
-
-    await writeTodoFile(data);
 }
 
-function checkIfExist(value,getAll) {
-    if (Object.values(getAll).includes('Catch '+value)) { //prevents adding the same Pokemon
-        return true;
-    }
-    return false;
+async function add(todoToAdd) {
+    await Items.create({ item_name: todoToAdd});
+}
+
+function checkIfExist(value,getAll) { 
+    return getAll.includes('Catch '+value);
 }
 
 async function pokemonFetch(item){
@@ -71,12 +70,8 @@ async function pokemonFetch(item){
 }
 
 async function deleteTodo(todoContent) { 
-    const data = await getAll();
-    const index = data.indexOf(todoContent);
-    const deletedTodo = data[index];
-    data.splice(index, 1);
-    await writeTodoFile(data);
-    return deletedTodo;
+    await Items.destroy({where: { item_name: todoContent }})
+    return;
 }
 
 module.exports = {

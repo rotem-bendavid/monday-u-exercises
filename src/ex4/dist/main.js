@@ -5,7 +5,7 @@ class Main {
 
     init = async () => {
         const addItemButton = document.getElementById("list-item-submit");
-        let todoInput = document.querySelector(".list-controls input");
+        let todoInput = document.querySelector(".newTask input");
         addItemButton.addEventListener("click", (event) => {
             this.handleItem(todoInput.value);
             todoInput.value = ""; //clears the input after adding task
@@ -41,9 +41,13 @@ class Main {
         items.forEach(item => {
             const listItem = document.createElement("li");
             listItem.classList.add('list-item');
+            listItem.onclick = function() {
+                (alert(item)); //on to-do click shows alert
+            }
             listItem.innerHTML = item;
 
             const listItemDeleteButton = this._createDeleteButton(item);
+            listItemDeleteButton.classList.add('list-item-delete');
             listItem.appendChild(listItemDeleteButton);
             list.appendChild(listItem);
         })
@@ -54,7 +58,9 @@ class Main {
         button.src = "./images/delete_icon.svg";
         button.classList.add('list-item-delete-button');
         button.addEventListener("click", _ => this.deleteItem(item));
-
+        button.onclick = function() {
+            event.stopPropagation();
+        }
         return button
     }
 }

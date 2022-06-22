@@ -8,6 +8,7 @@ exports.pokemonCatch = async function (pokemonsId) {
         const response = await Promise.all(
           pokemonIdArr.map(value =>axios.get(process.env.POKEMON_API+value))); //POKEMON_API FROM .ENV
         let results = await Promise.all(response.map(response=> response.data.name));
+        console.log('res - '+results);
         return results;
     } catch (err) {
       console.log('err: wasn\'t able to catch pokemon in api');
