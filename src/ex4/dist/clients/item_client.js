@@ -30,4 +30,12 @@ class ItemClient {
         })
     }
 
+    async changeStatus(todoContentToChangeStatus) {
+        const response = await fetch(`${this.API_BASE}`+`/`, {
+            method: "PUT",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({todoValue : todoContentToChangeStatus})
+        })
+    }
+
 }

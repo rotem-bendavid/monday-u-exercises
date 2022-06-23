@@ -21,8 +21,8 @@ async function writeTodoFile(content) {
 }*/
 
 async function getAll() {
-    const items = await Items.findAll();
-    const itemsMap = items.map(value => {return value.item_name});
+    const items = await Items.findAll({attributes: ['item_name', 'item_status']});
+    const itemsMap = items.map(value => ({todo: value.item_name, status: value.item_status}));
     return itemsMap;
 }
 
@@ -35,7 +35,7 @@ async function addTodo(newTodo) {
             const allValues = await getAll();
             await Promise.all(pokemonsCatched.map(async value => {
                 const alreadyExist = checkIfExist(value,allValues);
-                if (!alreadyExist) { //prevents adding the same Pokemon
+                if (!alreadyExist) { //prevents adding the same Pokemon - validation
                     await add(('Catch '+value));
                 }
                 else { 
@@ -57,7 +57,7 @@ async function add(todoToAdd) {
 }
 
 function checkIfExist(value,getAll) { 
-    return getAll.includes('Catch '+value);
+    return getAll.find(item => item.todo === 'Catch '+value);
 }
 
 async function pokemonFetch(item){
@@ -74,8 +74,21 @@ async function deleteTodo(todoContent) {
     return;
 }
 
+async function changeStatus(todoContent) { 
+    const prevCBValue = await Items.findOne({attributes: ['item_status'], where: {item_name: todoContent}});
+    let newCBValue = true;
+    let newTimeStampValue = Date.now();
+    if (prevCBValue.item_status) {
+        newCBValue = false;
+        newTimeStampValue = null;
+    }
+    await Items.update({item_status: newCBValue, status_updatedAt: newTimeStampValue} , {where: { item_name: todoContent }});
+    return;
+}
+
 module.exports = {
     getAll,
     addTodo,
     deleteTodo,
+    changeStatus,
 };

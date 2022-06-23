@@ -16,8 +16,14 @@ async function deleteTodo(req, res) {
     res.status(200).json(data);
 }
 
+async function changeStatus(req, res) { 
+    const data = await todoService.changeStatus(req.body.todoValue);
+    res.status(200).json(data);
+}
+
 module.exports = {
     createTodo,
     getAll,
     deleteTodo,
+    changeStatus,
 };

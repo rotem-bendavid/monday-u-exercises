@@ -29,7 +29,10 @@ class Main {
     deleteItem = async item => {
         await this.itemClient.deleteTodo(item);
         await this.renderItems();
+    }
 
+    changeCBStatus = async item => {
+        await this.itemClient.changeStatus(item);
     }
 
     renderItems = async () => {
@@ -42,26 +45,45 @@ class Main {
             const listItem = document.createElement("li");
             listItem.classList.add('list-item');
             listItem.onclick = function() {
-                (alert(item)); //on to-do click shows alert
+                (alert(item.todo)); //on to-do click shows alert
             }
-            listItem.innerHTML = item;
+            listItem.innerHTML = item.todo;
+
+            const listItemCheckbox = this._createCheckbox(item);
+            listItemCheckbox.classList.add('list-item-status');
 
             const listItemDeleteButton = this._createDeleteButton(item);
             listItemDeleteButton.classList.add('list-item-delete');
             listItem.appendChild(listItemDeleteButton);
+            listItem.appendChild(listItemCheckbox);
             list.appendChild(listItem);
         })
+    }
+
+    _createCheckbox = item => {
+        const checkBox = document.createElement("input");
+        checkBox.type = "checkbox";
+        if (item.status) {
+            checkBox.checked = true;
+        }
+        checkBox.classList.add('list-item-status-checkbox');
+        checkBox.addEventListener('change', _ => this.changeCBStatus(item.todo));
+        checkBox.onclick = function() {
+            event.stopPropagation();
+        }
+        
+       return checkBox;
     }
 
     _createDeleteButton = item => {
         const button = document.createElement("img");
         button.src = "./images/delete_icon.svg";
         button.classList.add('list-item-delete-button');
-        button.addEventListener("click", _ => this.deleteItem(item));
+        button.addEventListener("click", _ => this.deleteItem(item.todo));
         button.onclick = function() {
             event.stopPropagation();
         }
-        return button
+        return button;
     }
 }
 

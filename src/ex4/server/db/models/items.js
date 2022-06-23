@@ -18,7 +18,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       primaryKey: true
     },
-    item_name: DataTypes.STRING
+    item_name: DataTypes.STRING,
+    item_status: DataTypes.BOOLEAN,
+    status_updatedAt: DataTypes.DATE,
   }, {
     sequelize,
     modelName: 'Items',
