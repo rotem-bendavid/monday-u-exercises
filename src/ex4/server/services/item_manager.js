@@ -21,8 +21,8 @@ async function writeTodoFile(content) {
 }*/
 
 async function getAll() {
-    const items = await Items.findAll({attributes: ['item_name', 'item_status']});
-    const itemsMap = items.map(value => ({todo: value.item_name, status: value.item_status}));
+    const items = await Items.findAll({attributes: ['item_name', 'item_status', 'item_id']});
+    const itemsMap = items.map(value => ({id: value.item_id, todo: value.item_name, status: value.item_status}));
     return itemsMap;
 }
 
@@ -69,20 +69,20 @@ async function pokemonFetch(item){
     }
 }
 
-async function deleteTodo(todoContent) { 
-    await Items.destroy({where: { item_name: todoContent }})
+async function deleteTodo(todoId) { 
+    await Items.destroy({where: { item_id: todoId }})
     return;
 }
 
-async function changeStatus(todoContent) { 
-    const prevCBValue = await Items.findOne({attributes: ['item_status'], where: {item_name: todoContent}});
+async function changeStatus(todoId) { 
+    const prevCBValue = await Items.findOne({attributes: ['item_status'], where: {item_id: todoId}});
     let newCBValue = true;
     let newTimeStampValue = Date.now();
     if (prevCBValue.item_status) {
         newCBValue = false;
         newTimeStampValue = null;
     }
-    await Items.update({item_status: newCBValue, status_updatedAt: newTimeStampValue} , {where: { item_name: todoContent }});
+    await Items.update({item_status: newCBValue, status_updatedAt: newTimeStampValue} , {where: { item_id: todoId }});
     return;
 }
 

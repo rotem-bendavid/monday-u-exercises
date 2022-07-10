@@ -1,20 +1,20 @@
-class ItemClient {
+export default class ItemClient {
     constructor() {
         this.API_BASE = 'http://localhost:8000'; 
     }
 
-    async getTodos(){
-        const response = await fetch(`${this.API_BASE}`+'/get');
+    static async getTodos(){
+        const response = await fetch('/get');
         let result = await response.json();
         return result;
     }
 
-    async addTodo(newTodoValue) {
+    static async addTodo(newTodoValue) {
         if (newTodoValue == '') {
             alert("You can't add an empty task");
         }
         else {
-            const response = await fetch(`${this.API_BASE}`+`/`, {
+            const response = await fetch(`/`, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({todoValue : newTodoValue})
@@ -22,19 +22,19 @@ class ItemClient {
         }
     }
 
-    async deleteTodo(todoContentToDelete) {
-        const response = await fetch(`${this.API_BASE}`+`/`, {
+    static async deleteTodo(todoIdToDelete) {
+        const response = await fetch(`/`, {
             method: "DELETE",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({todoValue : todoContentToDelete})
+            body: JSON.stringify({todoValue : todoIdToDelete})
         })
     }
 
-    async changeStatus(todoContentToChangeStatus) {
-        const response = await fetch(`${this.API_BASE}`+`/`, {
+    static async changeStatus(todoIdToChangeStatus) {
+        const response = await fetch(`/`, {
             method: "PUT",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({todoValue : todoContentToChangeStatus})
+            body: JSON.stringify({todoValue : todoIdToChangeStatus})
         })
     }
 
