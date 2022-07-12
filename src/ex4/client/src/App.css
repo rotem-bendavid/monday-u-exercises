@@ -85,6 +85,30 @@ body {
   transition: background-color 0.2s ease-in-out;
 }
 
+.todo-hide-buttons{
+
+  display: flex;
+  justify-content: center;
+}
+
+.todo-hide-buttons button{
+  height: 30px;
+  border: 2px;
+  border-color: #5f5ff1;
+  outline: none;
+  background: rgba(118, 127, 233, 0.76);
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-left: 5px;
+}
+
+.todo-hide-buttons button:hover {
+  background-color: #6e6ef1;
+  transition: background-color 0.2s ease-in-out;
+}
+
 #list {
   max-height: 250px;
   overflow-y: auto;

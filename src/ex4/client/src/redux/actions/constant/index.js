@@ -2,7 +2,10 @@ const actions = {
     ADD_TODO: "ADD_TODO",
     DELETE_TODO: "DELETE_TODO",
     CHANGE_STATUS: "CHANGE_STATUS",
-    GET_TODOS: "GET_TODOS"
+    GET_TODOS: "GET_TODOS",
+    VIEW_ALL: "VIEW_ALL",
+    VIEW_ACTIVE: "VIEW_ACTIVE",
+    VIEW_COMPLETED: "VIEW_COMPLETED",
 };
 
 export default actions;

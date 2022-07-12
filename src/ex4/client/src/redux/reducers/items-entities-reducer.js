@@ -1,7 +1,7 @@
 import actionTypes from "../actions/constant";
 
 const initialState = {
-  todos:[]
+  todos:[],
 };
 
  const itemsEntitiesReducer = (state = initialState, action) => {
@@ -34,7 +34,6 @@ const initialState = {
     case actionTypes.GET_TODOS: {
       return {...state,todos: (action.payload)}
     };
-
   }
 };
 

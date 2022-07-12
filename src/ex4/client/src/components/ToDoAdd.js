@@ -46,4 +46,5 @@ function ToDoAdd(props) {
 const mapDispatchToProps = dispatch =>({
     add_todo: input => dispatch(addTodoAction(input))
 })
+
 export default connect(null,mapDispatchToProps)(ToDoAdd);

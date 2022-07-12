@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import ToDoAdd from './ToDoAdd';
 import ToDoList from './ToDoList';
+import ToDoHide from './ToDoHide';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import {getTodosAction} from '../redux/actions/todo-actions';
@@ -35,6 +36,7 @@ function ToDoManager(props) {
             <div className="list-container">
                 <h1>TO-DO list</h1>
                     <ToDoAdd/>
+                    <ToDoHide/>
                     <ul id="list">
                         <ToDoList/>
                     </ul>
