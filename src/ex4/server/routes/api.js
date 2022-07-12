@@ -1,8 +1,9 @@
+const { json } = require("stream/consumers");
 const todoService = require("../services/item_manager.js");
 
 async function createTodo(req, res) {
-    await todoService.addTodo(req.body.todoValue);
-    res.status(200).json(req.body.todoValue);
+    const data = await todoService.addTodo(req.body.todoValue);
+    res.status(200).json(data);
 }
 
 async function getAll(req, res) {

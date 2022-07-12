@@ -10,7 +10,7 @@ export default class ItemClient {
     }
 
     static async addTodo(newTodoValue) {
-        if (newTodoValue == '') {
+        if (newTodoValue === '') {
             alert("You can't add an empty task");
         }
         else {
@@ -19,6 +19,8 @@ export default class ItemClient {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({todoValue : newTodoValue})
             })
+            let result = await response.json();
+            return result;
         }
     }
 
@@ -28,6 +30,7 @@ export default class ItemClient {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({todoValue : todoIdToDelete})
         })
+        return response.ok;
     }
 
     static async changeStatus(todoIdToChangeStatus) {
@@ -36,6 +39,7 @@ export default class ItemClient {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({todoValue : todoIdToChangeStatus})
         })
+        return response.ok;
     }
 
 }

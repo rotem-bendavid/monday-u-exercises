@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { connect } from "react-redux";
+import { addTodoAction } from "../redux/actions/todo-actions"
 
-function ToDoForm(props) {
+function ToDoAdd(props) {
     const [input, setInput] = useState('');
 
     const inputRef = useRef(null);
@@ -15,7 +17,7 @@ function ToDoForm(props) {
 
     const handleSubmit = e => {
         e.preventDefault();
-        props.onSubmit(input);
+        props.add_todo(input);
         setInput('');
     };
 
@@ -41,4 +43,7 @@ function ToDoForm(props) {
       );
 }
 
-export default ToDoForm;
+const mapDispatchToProps = dispatch =>({
+    add_todo: input => dispatch(addTodoAction(input))
+})
+export default connect(null,mapDispatchToProps)(ToDoAdd);

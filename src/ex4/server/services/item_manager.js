@@ -33,27 +33,32 @@ async function addTodo(newTodo) {
         const pokemonsCatched = await pokemonFetch(newTodo);
         if (pokemonsCatched) {
             const allValues = await getAll();
-            await Promise.all(pokemonsCatched.map(async value => {
+            let allPokemonTodos = await Promise.all(pokemonsCatched.map(async value => {
                 const alreadyExist = checkIfExist(value,allValues);
                 if (!alreadyExist) { //prevents adding the same Pokemon - validation
-                    await add(('Catch '+value));
+                    return await add(('Catch '+value));
                 }
                 else { 
                     console.error(`err: Pokemon ${value} already exist in list`) 
+                    return null;
                 }
             }));
+            allPokemonTodos=allPokemonTodos.filter(n => {return n!=null}); //remove null values
+            return allPokemonTodos; 
         }
         else {
-            await add((`At least one of the Pokemons ID ${newTodo} not found`));
+            return await add((`At least one of the Pokemons ID ${newTodo} not found`));
         }
     }
     else {
-        await add(newTodo);
+        return await add(newTodo);
     }
 }
 
 async function add(todoToAdd) {
-    await Items.create({ item_name: todoToAdd});
+    await Items.create({item_name: todoToAdd});
+    const todoCreatedId = await Items.findOne({attributes: ['item_id'],where: { item_name: todoToAdd }}); 
+    return {id: await todoCreatedId.item_id, todo: todoToAdd, status:false};
 }
 
 function checkIfExist(value,getAll) { 

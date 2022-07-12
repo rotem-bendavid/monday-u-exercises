@@ -14,9 +14,9 @@ app.listen(port, () => {
     console.log("Server started on port", port);
 });
 
-app.use(express.static(__dirname + "/dist"));
+//app.use(express.static(__dirname + "/dist"));
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/dist/index.html");
+    //res.sendFile(__dirname + "/dist/index.html");
   });
 
 app.use('/', todoRouter);
