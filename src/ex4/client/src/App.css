@@ -50,11 +50,16 @@ body {
   text-align: center;
 }
 
-
-.newTask input {
+.list-container .new-task  {
+  display: flex;
+  height: 45px;
   width: 100%;
+  margin: 20px 0;
+}
+
+#list-item-input {
   min-width: 85%;
-  height: 100%;
+  height: 45px;
   border: 1px solid #ccc;
   font-size: 16px;
   border-radius: 3px;
@@ -62,9 +67,9 @@ body {
   outline: none;
 }
 
-.newTask button {
+#list-item-submit {
   width: 50px;
-  height: 100%;
+  height: 45px;
   border: none;
   outline: none;
   background: rgba(85, 97, 229, 0.76);
@@ -73,19 +78,67 @@ body {
   cursor: pointer;
   border-radius: 3px;
   margin-left: 5px;
-  
 }
 
-.newTask button:hover {
+#list-item-submit:hover {
   background-color: #3c3cff;
   transition: background-color 0.2s ease-in-out;
 }
 
-.list-container .newTask {
+.todo-hide-buttons{
   display: flex;
-  height: 45px;
-  width: 100%;
-  margin: 20px 0;
+  justify-content: center;
+}
+
+.todo-hide-buttons button{
+  height: 30px;
+  border: 2px;
+  border-color: #5f5ff1;
+  outline: none;
+  background: rgba(118, 127, 233, 0.76);
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-left: 5px;
+}
+
+.todo-hide-buttons button:hover {
+  background-color: #6e6ef1;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.todo-search{
+  
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  margin-left: 5px;
+  height: 20px;
+}
+
+.search-input{
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding-left: 5px;
+  outline: none;
+  height: 30px;
+}
+
+.search-button{
+  border: none;
+  outline: none;
+  background: rgba(118, 127, 233, 0.76);
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-left: 5px;
+  height: 30px;
+}
+
+.todo-search button:hover {
+  background-color: #6e6ef1;
+  transition: background-color 0.2s ease-in-out;
 }
 
 #list {
@@ -115,10 +168,12 @@ body {
 .list-item-delete {
   position: absolute;
   right: -45px;
-  color: #fff;
+  color: rgb(83, 83, 83);
   background-color: rgba(182, 187, 254, 0.76);
   width: 45px;
+  height: 45px;
   text-align: center;
+  border: none;
   padding: 12px;
   border-radius: 0 3px 3px 0;
   cursor: pointer;
@@ -127,4 +182,8 @@ body {
 
 .list-item:hover .list-item-delete{
   right: 0px;
+}
+
+.list-item.complete{
+  text-decoration-line: line-through;
 }
