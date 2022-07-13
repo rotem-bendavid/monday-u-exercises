@@ -7,8 +7,7 @@ async function createTodo(req, res) {
 }
 
 async function getAll(req, res) {
-    let data = await todoService.getAll();
-    if (!data) data = [];
+    let data = await todoService.getAll() || [];
     res.status(200).json(data);
 }
 

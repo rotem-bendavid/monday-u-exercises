@@ -1,24 +1,6 @@
 const fs = require('fs').promises;
-//const todoFile = 'todo_list.json';
 const pokemonAPI = require("../clients/pokemon_client.js");
 const { Items } = require('../db/models');
-
-/*async function readTodoFile() {
-    try {
-        const data = await fs.readFile(todoFile);
-        return JSON.parse(data.toString());
-    } catch (error) {
-        console.error(`Got an error trying to read the file: ${error.message}`);
-    }
-}
-
-async function writeTodoFile(content) {
-    try {
-        await fs.writeFile(todoFile, JSON.stringify(content));
-    } catch (error) {
-        console.error(`Failed to write to file ${error.message}`);
-    }
-}*/
 
 async function getAll() {
     const items = await Items.findAll({attributes: ['item_name', 'item_status', 'item_id']});
@@ -32,9 +14,9 @@ async function addTodo(newTodo) {
     if (newTodo.match(regex) || pokemonsName.indexOf(newTodo)!=-1) { //if input is nums & ',' or pokemon name from pokemonsName list
         const pokemonsCatched = await pokemonFetch(newTodo);
         if (pokemonsCatched) {
-            const allValues = await getAll();
+            const allTodos = await getAll();
             let allPokemonTodos = await Promise.all(pokemonsCatched.map(async value => {
-                const alreadyExist = checkIfExist(value,allValues);
+                const alreadyExist = checkIfExist(value,allTodos);
                 if (!alreadyExist) { //prevents adding the same Pokemon - validation
                     return await add(('Catch '+value));
                 }
@@ -43,11 +25,12 @@ async function addTodo(newTodo) {
                     return null;
                 }
             }));
-            allPokemonTodos=allPokemonTodos.filter(n => {return n!=null}); //remove null values
+            allPokemonTodos=allPokemonTodos.filter(n => {return n!=null}); //remove null values from pokemons that are already exist
             return allPokemonTodos; 
         }
         else {
-            return await add((`At least one of the Pokemons ID ${newTodo} not found`));
+            console.error(`err: At least one of the Pokemons ID ${newTodo} not found`);
+            return [];
         }
     }
     else {
@@ -61,8 +44,8 @@ async function add(todoToAdd) {
     return {id: await todoCreatedId.item_id, todo: todoToAdd, status:false};
 }
 
-function checkIfExist(value,getAll) { 
-    return getAll.find(item => item.todo === 'Catch '+value);
+function checkIfExist(value,allTodos) { 
+    return allTodos.find(item => item.todo === 'Catch '+value);
 }
 
 async function pokemonFetch(item){

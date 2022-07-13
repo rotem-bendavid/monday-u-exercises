@@ -12,6 +12,10 @@ const view_all = () => ({
     type: actionsTypes.VIEW_COMPLETED
   });
   
+  const search_todo = (data) => ({
+    type: actionsTypes.SEARCH_TODO,
+    payload: data
+  });
   
   export const viewAllAction = () => {
     return dispatch => {
@@ -28,5 +32,11 @@ const view_all = () => ({
   export const viewCompletedAction = () => {
     return dispatch => {
       dispatch(view_completed());
+    };
+  };
+
+  export const searchTodoAction = (data) => {
+    return dispatch => {
+      dispatch(search_todo(data));
     };
   };
