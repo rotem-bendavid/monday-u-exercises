@@ -1,10 +1,10 @@
 import React, { useState,useEffect,useCallback } from 'react';
-import ToDoAdd from './ToDoAdd';
-import ToDoList from './ToDoList';
-import ToDoHide from './ToDoHide';
+import ToDoAdd from '../ToDoAdd';
+import ToDoList from '../ToDoList/ToDoList';
+import ToDoHide from '../ToDoHide';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import {getTodosAction} from '../redux/actions/todo-actions';
+import {getTodosAction} from '../../redux/actions/todo-actions';
 
 function ToDoManager(props) {
     const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ function ToDoManager(props) {
     }
 
     useEffect(() => {
-        importTodos();
+        importTodos()        
     },[])
 
     useEffect(() => {
@@ -38,7 +38,9 @@ function ToDoManager(props) {
                     <ToDoAdd/>
                     <ToDoHide/>
                     <ul id="list">
-                        <ToDoList/>
+                    {props.todos.map((todo) => (
+                        <ToDoList todo={todo} isChecked={todo.status} className={todo.id} key={todo.id}/>
+                    ))}
                     </ul>
                     
             </div>

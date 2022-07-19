@@ -1,5 +1,5 @@
 import './App.css';
-import ToDoManager from './components/ToDoManager';
+import ToDoManager from './components/ToDoManager/ToDoManager';
 
 function App() {
   return (
