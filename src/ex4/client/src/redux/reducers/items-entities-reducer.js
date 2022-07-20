@@ -1,6 +1,6 @@
 import actionTypes from "../actions/constant";
 
-const initialState = {
+export const initialState = {
   todos:[],
 };
 
